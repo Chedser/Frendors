@@ -1,0 +1,93 @@
+﻿    function empty(e) {
+  switch (e) {
+    case "":
+    case 0:
+    case "0":
+    case null:
+    case false:
+    case typeof this == "undefined":
+      return true;
+    default:
+      return false;
+  }
+}
+    
+    function copy(btn_id) {
+  var inp_val = $("#inp_" + btn_id).val();
+
+     if(empty(inp_val)){
+         return; 
+       }
+
+  $("#inp_" + btn_id).select();
+  document.execCommand("copy"); 
+  alert("Скопировано! " + inp_val);
+
+}
+
+function translink(){
+    var val = $("#inp_0").val().trim();
+    
+     if(empty(val)){
+        $("#erspan").text("Хули пусто?");
+         return; 
+       }
+   
+   var regex_id = /(^|[\n ])([\w]*?)(https?:)?(www\.)?(\/\/vk\.com\/)(id|public|club)([a-zA-Z0-9._!\?&-=\,&#@*\(\)йцукенгшщзхъфывапролджэячсмитьбю;]{1,256})/; 
+   var regex_sn  = /(^|[\n ])([\w]*?)(https?:)?(www\.)?(\/\/vk\.com\/)([a-zA-Z0-9._!\?&-=\,&#@*\(\)йцукенгшщзхъфывапролджэячсмитьбю;]{1,256})/;
+   var result = "";
+   var mr = "XXX";
+
+   var flag = true;
+   
+   if(regex_id.test(val)){
+        var match = regex_id.exec(val);
+ 
+       result = match[6] + match[7];
+
+   }else if(regex_sn.test(val)){
+       var match = regex_sn.exec(val);
+       result = match[6];
+    console.log(match[6]);
+       
+   }else{
+       flag = false;
+       $("#erspan").text("Хуевый ввод");
+    }
+    
+    if(flag){
+               
+        if( !empty($('#inp_-1').val()) ){
+            
+            mr = $('#inp_-1').val();
+            
+        }       
+                
+       $('#inp_1').val("[" + result + "|" + mr + "]");
+       $('#inp_2').val("@" + result);
+       $('#inp_3').val("*" + result);
+        
+    }
+
+}
+
+
+$(document).ready(function(e){
+    
+    
+    
+    $("button").click(function() {
+        var btn_id = $(this).attr("id");
+      
+     switch(btn_id){
+         case "1":
+         case "2":
+         case "3":copy(btn_id); break;   
+         default: translink(); break;
+         
+     }
+
+    });
+
+    
+});
