@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /scripts/
+Disallow: /handlers/
+Disallow: /payment/
+Disallow: /inc_points.php
+Disallow: /mirror.php
+Disallow: /bot.php
+
+Sitemap: http://frendors.com/sitemap.xml
